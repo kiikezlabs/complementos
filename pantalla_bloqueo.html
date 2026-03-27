@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Suspendido</title>
+    <style>
+        body { background-color: #f8fafc; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; color: #1e293b; }
+        .container { text-align: center; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-top: 5px solid #ef4444; max-width: 500px; width: 90%; }
+        h1 { color: #0f172a; margin-bottom: 10px; }
+        p { color: #64748b; margin-bottom: 30px; }
+        .token-box { background: #f1f5f9; padding: 20px; border-radius: 8px; }
+        input[type="text"] { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; text-align: center;}
+        button { background: #1e293b; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold;}
+        button:hover { background: #334155; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚠️ Acceso Suspendido</h1>
+        <p>Por favor, comunícate con el administrador del sistema en Kiikez Labs.</p>
+        
+        <div class="token-box">
+            <form method="POST">
+                <input type="text" name="sys_recovery_token" placeholder="PROLOSOFT-DD/MM/AAAA" required>
+                <button type="submit">Validar Acceso</button>
+            </form>
+            [[SYS_ERROR_MSG]]
+        </div>
+    </div>
+</body>
+</html>
