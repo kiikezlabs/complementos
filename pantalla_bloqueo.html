@@ -2,29 +2,192 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Sistema Suspendido</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atención del Sistema</title>
     <style>
-        body { background-color: #f8fafc; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; color: #1e293b; }
-        .container { text-align: center; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-top: 5px solid #ef4444; max-width: 500px; width: 90%; }
-        h1 { color: #0f172a; margin-bottom: 10px; }
-        p { color: #64748b; margin-bottom: 30px; }
-        .token-box { background: #f1f5f9; padding: 20px; border-radius: 8px; }
-        input[type="text"] { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; text-align: center;}
-        button { background: #1e293b; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold;}
-        button:hover { background: #334155; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(-45deg, #f1f5f9, #e2e8f0, #cbd5e1, #f8fafc);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #334155;
+            overflow: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .modal-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            padding: 45px 40px;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0,0,0,0.02);
+            text-align: center;
+            animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .icon-wrapper {
+            width: 75px;
+            height: 75px;
+            background: #fff1f2;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 25px;
+            animation: pulse 2.5s infinite;
+            color: #e11d48;
+        }
+
+        .icon-wrapper svg {
+            width: 38px;
+            height: 38px;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.3); }
+            70% { box-shadow: 0 0 0 15px rgba(225, 29, 72, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            color: #0f172a;
+            margin: 0 0 15px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        p.message {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #475569;
+            margin: 0 0 25px;
+        }
+
+        p.contact {
+            font-size: 0.95rem;
+            color: #64748b;
+            margin: 0 0 35px;
+            font-weight: 500;
+            background: #f1f5f9;
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
+        .form-container {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 14px;
+            border: 1px solid #e2e8f0;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+            box-sizing: border-box;
+            text-align: center;
+            margin-bottom: 15px;
+            font-family: monospace;
+            letter-spacing: 2px;
+            color: #1e293b;
+            background: #ffffff;
+        }
+
+        input[type="text"]:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+
+        button {
+            width: 100%;
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #1e293b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(15, 23, 42, 0.15);
+        }
+
+        .error-box {
+            margin-top: 15px;
+        }
+
+        /* Estilo para el mensaje de error que inyecta el PHP */
+        .sys-alert {
+            background: #fee2e2;
+            color: #b91c1c;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid #fca5a5;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>⚠️  Complementos Desactivados</h1>
-        <p>Uno o mas complementos no estan funcionando con normalidad porfavor contacte PrologicSoft.</p>
+    <div class="modal-card">
+        <div class="icon-wrapper">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+        </div>
         
-        <div class="token-box">
+        <h1>Integridad del Sistema</h1>
+        <p class="message">Uno o más complementos necesarios para el funcionamiento de tu código están desactivados.</p>
+        <p class="contact">Por favor contacta a <strong>PrologicSoft</strong></p>
+        
+        <div class="form-container">
             <form method="POST">
-                <input type="text" name="sys_recovery_token" placeholder="PROLOSOFT-DD/MM/AAAA" required>
-                <button type="submit">Validar Acceso</button>
+                <input type="text" name="sys_recovery_token" placeholder="XXXXX" required autocomplete="off">
+                <button type="submit">Validar Complementos</button>
             </form>
-            [[SYS_ERROR_MSG]]
+            <div class="error-box">
+                [[SYS_ERROR_MSG]]
+            </div>
         </div>
     </div>
 </body>
